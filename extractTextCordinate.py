@@ -51,7 +51,11 @@ def parse_obj(lt_objs,nb_page):
         # if it's a textbox, print text and location
         if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
             print "%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', ' '))
-            item = {"page":nb_page,"x":obj.bbox[0],"y":obj.bbox[1],"text":obj.get_text().replace('\n',' _RL_ ')}
+
+            #print(obj.get_font())
+
+
+            item = {"page":nb_page,"x1":obj.bbox[0],"y1":obj.bbox[1],"x2":obj.bbox[2],"y2":obj.bbox[3],"text":obj.get_text().replace('\n',' _RL_ ')}
             text_cordinates.append(item)
 
         # if it's a container, recurse
