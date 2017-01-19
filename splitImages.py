@@ -1,7 +1,7 @@
 #Script to replace the white background by trasnparent background
 from PIL import Image
 
-img = Image.open('./images/THE UNIVERSE/30.png')
+img = Image.open('./images/SPORTS/546.png')
 img = img.convert("RGBA")
 datas = img.getdata()
 

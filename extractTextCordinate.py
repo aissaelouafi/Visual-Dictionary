@@ -15,7 +15,7 @@ sys.setdefaultencoding('utf-8')
 
 json_write_file = open("text_cordinates.json","w")
 json_write_image_cordinates = open("images_cordinate.json","w")
-
+json_write_lines_cordinates = open("lines_cordinates.json","w")
 #Open the global summary html page (page-7.html)
 fp = open('./UVD.pdf')
 parser = PDFParser(fp)
@@ -39,6 +39,8 @@ text_cordinates = []
 
 image_cordinates = []
 
+lines_cordinates = []
+
 device = PDFPageAggregator(rsrcmgr, laparams=laparams)
 
 # Create a PDF interpreter object.
@@ -61,14 +63,18 @@ def parse_obj(lt_objs,nb_page):
             text_cordinates.append(item)
 
         elif isinstance(obj, pdfminer.layout.LTFigure):
-            parse_obj(obj._objs,0)
+            item = {"page":nb_page,"startingx":obj.bbox[0],"startingy":obj.bbox[1],"endingx":obj.bbox[2],"endingy":obj.bbox[3]}
+            lines_cordinates.append(item)
 
         if isinstance(obj, pdfminer.layout.LTImage):
-            print(obj)
+            #print(obj)
             item = {"page":nb_page,"startingx":obj.bbox[0],"startingy":obj.bbox[1],"endingx":obj.bbox[2],"endingy":obj.bbox[3]}
             image_cordinates.append(item);
-            print "image cordinate : starting x : %6d, startingy :%6d, startingy: %6d, endingy: %6d" %(obj.bbox[0], obj.bbox[1], obj.bbox[2], obj.bbox[3])
+            #print "image cordinate : starting x : %6d, startingy :%6d, startingy: %6d, endingy: %6d" %(obj.bbox[0], obj.bbox[1], obj.bbox[2], obj.bbox[3])
 
+        if isinstance(obj,pdfminer.layout.LTLine):
+            print("LTLine ...");
+            print(obj);
         # if it's a container, recurse
         #elif isinstance(obj, pdfminer.layout.LTFigure):
         #    parse_obj(obj._objs,0)
@@ -88,6 +94,7 @@ for page in PDFPage.create_pages(document):
 
 jsonData=json.dumps(text_cordinates)
 imageJsonData = json.dumps(image_cordinates);
+lineJsonData = json.dumps(lines_cordinates)
 print(imageJsonData)
 
 with json_write_file as json_write_file:
@@ -97,3 +104,7 @@ with json_write_file as json_write_file:
 with json_write_image_cordinates as images_cordinate:
     images_cordinate.write(imageJsonData)
     print("file images_cordinates.json created successfuly ... ");
+
+with json_write_lines_cordinates as json_write_lines_cordinates:
+    json_write_lines_cordinates.write(lineJsonData)
+    print("file lines_cordinates.json created successfuly ... ");
