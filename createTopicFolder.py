@@ -22,6 +22,9 @@ for i in xrange(len(topic_object)):
     if not os.path.exists('images/'+folder_name):
         os.makedirs('images/'+folder_name)
         print("folder : images/"+folder_name+" created successfuly ! ")
+    else if not os.path.exists('corped_images/'+folder_name):
+        os.makedirs('corped_images/'+folder_name)
+        print("folder : images/"+folder_name+" created successfuly ! ")
     else :
         print("folder : images/"+folder_name+" already exist ! ")
 
