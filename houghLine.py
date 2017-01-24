@@ -1,9 +1,10 @@
 import cv2,json,os
 import numpy as np
 
-line_cordinates = open("line_cordinates.json","r")
+line_cordinates = open("line_cordinates.json","w")
 rootdir = "images"
 lineCordinate = []
+
 
 for path, subdir, files in os.walk(rootdir):
     for name in files:
@@ -23,7 +24,6 @@ for path, subdir, files in os.walk(rootdir):
                 item = {"image":image_nb,"x1":str(x1),"x2":str(x2),"y1":str(y1),"y2":str(y2)}
                 lineCordinate.append(item)
             cv2.imwrite("images/"+image_nb+"_hough"+".png",img)
-
 
 jsonData = json.dumps(lineCordinate)
 with line_cordinates as line_cordinates:

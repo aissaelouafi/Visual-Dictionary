@@ -30,7 +30,7 @@ for path, dirs, files in os.walk(rootdir):
 
             #dilating the result to connect all small components in your image
             kernel=cv2.getStructuringElement(cv2.MORPH_CROSS,(3,3))
-            for i in range(10):
+            for i in range(100):
                 res=cv2.dilate(res,kernel)
 
             #cv2.imwrite("testsplited2.png",img)
