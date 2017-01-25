@@ -23,28 +23,20 @@ for path, dirs, files in os.walk(rootdir):
                    if(y < 52):
                        picture.putpixel((x,y),(253,252,252))
                        current_color = picture.getpixel( (x,y) )
-                       #print("color replaced \n");
 
                    if(y > 1280):
                         picture.putpixel((x,y),(253,252,252))
                         current_color = picture.getpixel( (x,y) )
-                        #print("color replaced \n");
 
                    image_nb = int(image_nb)
-                   #print(image_nb)
-                   #if(image_nb %2 == 0):
                    if(x > 1060):
-                      #print("pair")
                        picture.putpixel((x,y),(253,252,252))
                        current_color = picture.getpixel( (x,y) )
-                       #print("color replaced \n");
 
-                    ## Page paire
                    #else:
                    if(x < 44):
                       picture.putpixel((x,y),(253,252,252))
                       current_color = picture.getpixel( (x,y) )
-                            #print("color replaced \n");
 
 
             picture.save(image_name)
