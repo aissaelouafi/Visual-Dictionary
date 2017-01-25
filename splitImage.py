@@ -21,6 +21,8 @@ for path, dirs, files in os.walk(rootdir):
             if img is None:
                 sys.exit("No input image") #good practice
 
+
+            
             #thresholding your image to keep all but the background (I took a version of your
             #image with a white background )
             thresh=cv2.threshold(img, 250, 252, cv2.THRESH_BINARY_INV);

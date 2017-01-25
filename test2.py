@@ -2,7 +2,7 @@ import cv2,json,os
 import numpy as np
 
 
-image_name = "./images/SPORTS/557.png"
+image_name = "./images/SPORTS/558.png"
 image_nb = "557"
 img = cv2.imread(image_name)
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)

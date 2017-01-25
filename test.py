@@ -45,8 +45,6 @@ for contour in contours:
     y1 = min(Ys)
     y2 = max(Ys)
 
-    #cv2.drawContours(original_image,[box],0,(0,0,255),2)
-    #cv2.imwrite("contours_image.png",original_image)
 
 
 
@@ -59,3 +57,6 @@ for contour in contours:
         cv2.imwrite(croped_image_name,img2)
         print(croped_image_name+" created successfuly ...")
         cpt=cpt+1;
+
+    cv2.drawContours(original_image,[box],0,(0,0,255),2)
+    cv2.imwrite("contours_image.png",original_image)
