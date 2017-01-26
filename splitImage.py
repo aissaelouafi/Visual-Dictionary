@@ -7,7 +7,12 @@ import shutil
 import numpy as np
 from matplotlib import pyplot as plt
 
+json_write_file = open("image_split_rectangle.json","w")
+
 rootdir = "images"
+
+
+image_rectangle = []
 
 for path, dirs, files in os.walk(rootdir):
     for name in files:
@@ -22,7 +27,7 @@ for path, dirs, files in os.walk(rootdir):
                 sys.exit("No input image") #good practice
 
 
-            
+
             #thresholding your image to keep all but the background (I took a version of your
             #image with a white background )
             thresh=cv2.threshold(img, 250, 252, cv2.THRESH_BINARY_INV);
@@ -32,7 +37,7 @@ for path, dirs, files in os.walk(rootdir):
 
             #dilating the result to connect all small components in your image
             kernel=cv2.getStructuringElement(cv2.MORPH_CROSS,(3,3))
-            for i in range(100):
+            for i in range(10):
                 res=cv2.dilate(res,kernel)
 
             #cv2.imwrite("testsplited2.png",img)
@@ -59,8 +64,12 @@ for path, dirs, files in os.walk(rootdir):
                 y1 = min(Ys)
                 y2 = max(Ys)
 
+                item = {"x1":x1,"x2":x2,"y1":y1,"y2":y2,"page":image_nb}
+                image_rectangle.append(item)
                 #cv2.drawContours(original_image,[box],0,(0,0,255),2)
                 #cv2.imwrite("contours_image.png",original_image)
+
+
 
                 img2=original_image[y1:y2,x1:x2]
                 height, width, channels = img2.shape
@@ -70,3 +79,8 @@ for path, dirs, files in os.walk(rootdir):
                     cv2.imwrite(croped_image_name,img2)
                     print(croped_image_name+" created successfuly ...")
                     cpt=cpt+1;
+
+
+with json_write_file as json_write_file:
+    json_write_file.write(json.dumps(image_rectangle))
+    print("file : image_split_rectangle.json created successfuly ...")

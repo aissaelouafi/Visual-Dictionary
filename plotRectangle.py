@@ -6,9 +6,14 @@ import numpy as np
 
 
 text_cordinates = open("text_cordinates.json","r")
+rectangle_cordinate = open("image_split_rectangle.json","r")
+
+
 text_cordinates = json.load(text_cordinates)
+rectangle_cordinate = json.load(rectangle_cordinate)
+
 size = 552, 666
-im = Image.open('./images/SPORTS/544.png')
+im = Image.open('./images/SPORTS/546.png')
 im.thumbnail(size, Image.ANTIALIAS)
 # Create figure and axes
 fig,ax = plt.subplots(1)
@@ -17,10 +22,16 @@ fig,ax = plt.subplots(1)
 ax.imshow(im)
 
 for i in xrange(len(text_cordinates)):
-    print(text_cordinates[i])
-    if(text_cordinates[i]["page"] == 544):
-        rect = patches.Rectangle((text_cordinates[i]["startingx"],666-text_cordinates[i]["endingy"]),text_cordinates[i]["endingx"]-text_cordinates[i]["startingx"],text_cordinates[i]["endingy"]-text_cordinates[i]["startingy"],linewidth=1,edgecolor='r',facecolor='none')
-        ax.add_patch(rect)
+    for j in xrange(len(rectangle_cordinate)):
+        if(rectangle_cordinate[i]["page"] == 546):
+            print(rectangle_cordinate[i]["page"])
+            rect = patches.Rectangle((text_cordinates[i]["x1"],666-text_cordinates[i]["y2"]),text_cordinates[i]["x1"]-text_cordinates[i]["x2"],text_cordinates[i]["y2"]-text_cordinates[i]["y1"],linewidth=1,edgecolor='b',facecolor='none')
+            ax.add_patch(rect)
+        if(text_cordinates[i]["page"] == 546):
+            rect = patches.Rectangle((text_cordinates[i]["startingx"],666-text_cordinates[i]["endingy"]),text_cordinates[i]["endingx"]-text_cordinates[i]["startingx"],text_cordinates[i]["endingy"]-text_cordinates[i]["startingy"],linewidth=1,edgecolor='r',facecolor='none')
+            ax.add_patch(rect)
+
+
 
 plt.show()
-savefig('image544_cordinate.png')
+savefig('legend_cordinates_546.png')
