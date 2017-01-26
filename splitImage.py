@@ -64,7 +64,7 @@ for path, dirs, files in os.walk(rootdir):
                 y1 = min(Ys)
                 y2 = max(Ys)
 
-                item = {"x1":x1,"x2":x2,"y1":y1,"y2":y2,"page":image_nb}
+                item = {"x1":x1,"x2":x2,"y1":y1,"y2":y2,"image":int(image_nb)}
                 image_rectangle.append(item)
                 #cv2.drawContours(original_image,[box],0,(0,0,255),2)
                 #cv2.imwrite("contours_image.png",original_image)
@@ -81,6 +81,9 @@ for path, dirs, files in os.walk(rootdir):
                     cpt=cpt+1;
 
 
+
+image_rectangle = sorted(image_rectangle, key=lambda k: k['image'], reverse=True)
+print(image_rectangle)
 with json_write_file as json_write_file:
     json_write_file.write(json.dumps(image_rectangle))
     print("file : image_split_rectangle.json created successfuly ...")
