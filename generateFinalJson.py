@@ -80,7 +80,7 @@ for j in xrange(len(rectangle_cordinate)):
                         #print(final_point)
 
 
-                        item = {"x":xrelatif,"y":yrelatif,"image":""+str(image_nb)+"_"+str(rectangle_cordinate[j]["cpt"])+".png","legend":text_cordinates[i]["text"]}
+                        item = {"x":xrelatif-text_width,"y":yrelatif-text_height,"image":""+str(image_nb)+"_"+str(rectangle_cordinate[j]["cpt"])+".png","legend":text_cordinates[i]["text"]}
                         splited_images_legend.append(item)
 
             ax.add_patch(rect)
