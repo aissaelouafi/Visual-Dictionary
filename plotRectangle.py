@@ -76,8 +76,8 @@ for j in xrange(len(rectangle_cordinate)):
                         yrelatif = ypoint-y1
 
                         final_point = (xrelatif,yrelatif)
-                        print("last point ")
-                        print(final_point)
+                        #print("last point ")
+                        #print(final_point)
 
 
                         item = {"x":xrelatif,"y":yrelatif,"image":""+str(image_nb)+"_"+str(rectangle_cordinate[j]["cpt"])+".png","legend":text_cordinates[i]["text"]}
