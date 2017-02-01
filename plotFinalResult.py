@@ -7,7 +7,7 @@ import numpy as np
 
 legend_cordinates = open("splited_images_legend.json","r")
 
-image_nb = "546_4"
+image_nb = "531_9"
 
 #size = 552, 666
 im = Image.open('./croped_images/SPORTS/'+str(image_nb)+'.png')
