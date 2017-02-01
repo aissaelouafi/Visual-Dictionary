@@ -15,7 +15,7 @@ for file in os.listdir(rootdir):
             page_text_content = page_text_content + "### nb_page : "+nb_page +" ###" + "\n"
             #Convert html content to text data (delete balises ... )
             html_converter = html2text.HTML2Text()
-            html_converter.ignore_links = True
+            #html_converter.ignore_links = True
             content = open('out/'+file)
 
             text_data = html_converter.handle(content.read().decode('utf-8').strip())
