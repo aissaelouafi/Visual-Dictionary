@@ -3,7 +3,7 @@ import glob,os,html2text,sys,re,json
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-#Open the global summary html page (page-7.html)
+#Open the global summary html page (page-X.html)
 rootdir = 'out'
 json_output_file = open("global_summary.json","r")
 json_write_file = open("topic_summary.json","w")
