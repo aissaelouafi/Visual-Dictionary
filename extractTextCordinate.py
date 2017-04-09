@@ -13,7 +13,7 @@ import pdfminer
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-json_write_file = open("text_cordinates.json","w")
+json_write_file = open("text_cordinates_2.json","w")
 json_write_image_cordinates = open("images_cordinate.json","w")
 json_write_lines_cordinates = open("lines_cordinates.json","w")
 #Open the global summary html page (page-7.html)
