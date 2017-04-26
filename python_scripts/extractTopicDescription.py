@@ -12,8 +12,9 @@ json_topics_summary = json.load(json_topics_summary)
 json_text_cordinates = json.load(json_text_cordinates)
 
 
+
 topics_description = {}
-final_topics_description = {}
+final_topics_description = []
 
 for i in xrange(len(json_text_cordinates)):
     try:
@@ -21,16 +22,23 @@ for i in xrange(len(json_text_cordinates)):
     except KeyError:
         topics_description[json_text_cordinates[i]["page"]] = [json_text_cordinates[i]["text"]]
 
+print (topics_description)
+
+
 for i in xrange(len(json_topics_summary)):
     page = int(json_topics_summary[i]["page"])
-    if(page<614 and page > 0):
+    if(page<614 and page > 10):
         try:
-            print("page {} : {}".format(page-2,max(topics_description[page]))) #The max string length and should start by capital letter all the title
+            lis = topics_description[page]
+            ml = max(len(s) for s in lis)
+            result = list(set(s for s in lis if len(s) == ml))
+            print("page {} : topic:{} subtopic: {} description : {}".format(page,topics_description[page][0],topics_description[page][1],result)) #The max string length and should start by capital letter all the title
+            item = {"page":page,"topic":topics_description[page][0].lower().replace("_rl_",""),"subtopic":topics_description[page][1].lower().replace("_rl_",""),"description":result}
+            final_topics_description.append(item)
+
         except KeyError:
             continue
-        #final_topics_description[page] = max(topics_description[page])
 
-
-
-
-print(max(topics_description[18]))
+with json_topics_description as file:
+    file.write(json.dumps(final_topics_description))
+    print("file : final_topics_description.json created successfuly ...")
