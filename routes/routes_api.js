@@ -57,13 +57,20 @@ module.exports = function(app, passport) {
 
   app.get('/api/sub_topics/:topic',function(req,res){
     var topic = req.params.topic;
+    console.log(topic)
+    var subtopics = []
     var file = JSON_PATH+"topics_description.json"
+    file = file.replace("routes","public")
     jsonfile.readFile(file, function(err, obj) {
       if(err){
         console.log(err)
       }
-      return res.json(obj)
-      console.log(obj)
+      var obj_json = obj
+      for (var i = 0; i < obj_json.length; i++) {
+        if(obj_json[i]["topic"].replace(/\s/g, '') == topic)
+          subtopics.push({"subtopic":obj_json[i]["subtopic"],"description":obj_json[i]["description"],"page":obj_json[i]["page"]})
+      }
+      return res.json(subtopics)
     })
   })
 
