@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>[VDP] Visual Dictionary Project </title>
+        <meta name="description" content="Neuer is a responsive portfolio template for creative people.">
+        <meta name="author" content="ThemeBang">
+        <meta name="designer" content="ThemeBang">
+        <meta name="reply-to" content="themebang@gmail.com">
+        <meta name="copyright" content="(c) 2017 ThemeBang - www.themebang.com">
+        <meta name="robots" content="index, follow">
+        <!--Verifitication-->
+        <meta name="google-site-verification" content="">
+        <meta name="alexaVerifyID" content="">
+        <meta name="yandex-verification" content="">
+        <meta name="msvalidate.01" content="">
+        <!-- / Verifitication-->
+        <link rel="shortcut icon" href="./contents/images/icons/favicon.png">
+        <link rel="canonical" href="http://www.domainname.com/">
+        <!-- CSS -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet" type="text/css">
+        <link href="./contents/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="./contents/css/hover-min.css" rel="stylesheet" type="text/css">
+        <link href="./contents/portfolio/css/cubeportfolio.css" rel="stylesheet" type="text/css">
+        <link href="./contents/portfolio/css/portfolio.min.css" rel="stylesheet" type="text/css">
+        <link href="./contents/css/customize.css" rel="stylesheet" type="text/css">
+        <!-- Font Awesome -->
+        <script src="https://use.fontawesome.com/e9965a82bb.js"></script>
+    </head>
+    <body ng-controller="subtopicController">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <!--Title and Subtitle-->
+          <div class="cbp-l-project-title">{{subtopic}}</div>
+          <div class="cbp-l-project-subtitle"> Page : <b>{{ page }}</b></div>
+          <!--/Title and Subtitle-->
+
+          <!--Container-->
+          <div class="cbp-l-project-container">
+              <!--Description-->
+              <div class="cbp-l-project-desc">
+                  <div class="cbp-l-project-desc-title">
+                      <span>Topic Description</span>
+                  </div>
+                  <div class="cbp-l-project-desc-text topic_description" style="font-size:18px; line-height: 150%; text-align: justify;"> <span class="fa fa-user"></span> {{ description }}</div>
+              </div>
+              <!--/Description-->
+              <!--/Detail List-->
+              <div class="cbp-l-project-details">
+                  <div class="cbp-l-project-details-title">
+                      <span>Topic Details</span>
+                  </div>
+                   <!-- List-->
+                  <ul class="cbp-l-project-details-list">
+                      <li><strong><span class="fa fa-book"></span> Topic </strong> {{ subtopic }}</li>
+                      <li><strong><span class="fa fa-calendar"></span> Date</strong>22 December 2016</li>
+                      <li><strong><span class="fa fa-wikipedia-w "></span> Annotations </strong><span ng-repeat="annotation in annotations">{{ annotation.title }}, </span></li>
+                  </ul>
+              </div>
+              <!--/Detail List-->
+          </div>
+          <!--/Container-->
+          <!--Container 2-->
+          <div class="cbp-l-project-container">
+              <div class="cbp-l-project-related">
+                  <!--Title-->
+                  <div class="cbp-l-project-desc-title">
+                      <span>Annotations </span>
+                  </div>
+                  <!--/Title-->
+                  <!--Related List-->
+                  <ul class="cbp-l-project-details-list" ng-repeat="annotation in annotations">
+                    <p> <b style="font-size:25px;"> #{{ annotation.title }} : </b> {{ annotation.abstract }} <br/> <b>Categories :</b> <i><span ng-repeat="a in annotation.categories">{{ a }}, </i></p> <br/></p>
+                  </ul>
+                  <!--/Related List-->
+              </div>
+
+
+
+              <div class="cbp-l-project-container">
+                  <div class="cbp-l-project-related">
+                      <!--Title-->
+                      <div class="cbp-l-project-desc-title">
+                          <span>Elements </span>
+                      </div>
+                      <!--/Title-->
+                      <!--Related List-->
+                      <ul class="cbp-l-project-related-wrap" ng-repeat="subtopic in topics_details">
+                          <li class="cbp-l-project-related-item subtopic">
+                              <a href="#" class="cbp-singlePage cbp-l-project-related-link" rel="nofollow">
+                                  <img src="" style="height:300px;width:300px;" alt="">
+                                  <div class="cbp-l-project-related-title text-center">{{ subtopic.subtopic }}</div>
+                                  <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ subtopic.page }} </div>
+
+                              </a>
+                          </li>
+                      </ul>
+                      <!--/Related List-->
+                  </div>
+
+
+          </div>
+          <!--/Container 2-->
+          <br>
+          <br>
+          <br>
+      </div>
+    </div>
+      <script src="./contents/js/jquery-1.12.4.min.js" type="text/javascript"></script>
+      <script src="./contents/js/bootstrap.min.js" type="text/javascript"></script>
+      <script src="./contents/portfolio/js/jquery.cubeportfolio.js" type="text/javascript"></script>
+      <script src="./contents/portfolio/js/portfolio-1.js" type="text/javascript"></script>
+      <script src="./contents/js/retina.min.js" type="text/javascript"></script>
+      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="./contents/js/html5shiv.min.js"></script>
+      <script src="./contents/js/respond.min.js"></script>
+      <![endif]-->
+      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+      <script src="./javascripts/jquery.ajax-cross-origin.min.js"></script>
+
+      <script src="./contents/js/main.js" type="text/javascript"></script>
+      <script src="./javascripts/controller.js" type="text/javascript"></script>
+      <style>
+        .subtopic {
+          padding-left: 30px;
+          padding-top: 40px;
+        }
+      </style>
+</body>
+</html>

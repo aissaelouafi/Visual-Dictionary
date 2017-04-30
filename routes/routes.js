@@ -24,10 +24,9 @@ module.exports = function(app, passport) {
     })
   })
 
-  app.get('/topic',function(req,res){
-    res.render('topic.ejs');
-  })
-
+app.get('/subtopic',function(req,res){
+  res.render('subtopics_details.ejs')
+})
 
   app.post('/login',passport.authenticate('local-login',{
     successRedirect : '/profile',

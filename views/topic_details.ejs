@@ -34,14 +34,14 @@
         <div class="col-md-8 col-md-offset-2">
           <!--Title and Subtitle-->
           <div class="cbp-l-project-title">{{topic}}</div>
-          <div class="cbp-l-project-subtitle">by lorem ipsum</div>
+          <div class="cbp-l-project-subtitle"> Page : <b>{{ topic_page }}</b></div>
           <!--/Title and Subtitle-->
           <!--Slider-->
           <div class="cbp-slider">
               <ul class="cbp-slider-wrap">
                   <li class="cbp-slider-item">
                       <a href="contents/images/portfolios/1400x900/01.jpg" class="cbp-lightbox">
-                          <img src="contents/images/portfolios/1400x900/01.jpg" alt="">
+                          <img src="{{ topic_image }}" style="height:1000px; width:1200px;"alt="">
                       </a>
                   </li>
               </ul>
@@ -87,8 +87,8 @@
                   <!--Related List-->
                   <ul class="cbp-l-project-related-wrap" ng-repeat="subtopic in topics_details">
                       <li class="cbp-l-project-related-item subtopic">
-                          <a href="#" class="cbp-singlePage cbp-l-project-related-link" rel="nofollow">
-                              <img src="contents/images/portfolios/600x600/1.jpg" alt="">
+                          <a href="/subtopic?subtopic={{subtopic.subtopic}}" class="cbp-singlePage cbp-l-project-related-link" rel="nofollow">
+                              <img src="{{subtopic.image}}" style="height:300px;width:300px;" alt="">
                               <div class="cbp-l-project-related-title text-center">{{ subtopic.subtopic }}</div>
                               <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ subtopic.page }} </div>
 

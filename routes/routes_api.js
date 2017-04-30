@@ -51,6 +51,11 @@ module.exports = function(app, passport) {
       if(err){
         console.log(err)
       }
+      for (var i = 0; i < obj.length; i++) {
+        obj[i]["topic_image"] = "contents/images/croped_images/"+obj[i]["topic"]+"/"+obj[i]["page"]+"_0.png".replace(" ","\ ")
+        if(obj[i]["topic"] == "APPENDIX")
+          obj[i]["topic_image"] = "./contents/images/portfolios/600x600/1.jpg"
+      }
       return res.json(obj)
     })
   })
@@ -68,13 +73,57 @@ module.exports = function(app, passport) {
       var obj_json = obj
       for (var i = 0; i < obj_json.length; i++) {
         if(obj_json[i]["topic"].replace(/\s/g, '') == topic)
-          subtopics.push({"subtopic":obj_json[i]["subtopic"],"description":obj_json[i]["description"],"page":obj_json[i]["page"]})
+          subtopics.push({"subtopic":obj_json[i]["subtopic"],"description":obj_json[i]["description"],"page":obj_json[i]["page"],"image":"contents/images/croped_images/"+topic.toUpperCase()+"/"+obj_json[i]["page"]+"_0.png"})
       }
       return res.json(subtopics)
     })
   })
 
+  app.get('/api/subtopic_details/:subtopic',function(req,res){
+    var subtopic = req.params.subtopic;
+    console.log(subtopic)
+    var subtopics_description = []
+    var file = JSON_PATH+"topics_description.json"
+    file = file.replace("routes","public")
+    jsonfile.readFile(file, function(err, obj) {
+      if(err){
+        console.log(err)
+      }
+      var obj_json = obj
+      for (var i = 0; i < obj_json.length; i++) {
+        if(obj_json[i]["subtopic"].replace(/\s/g, '').toLowerCase() == subtopic.toLowerCase())
+          subtopics_description.push({"subtopic":obj_json[i]["subtopic"],"description":obj_json[i]["description"],"page":obj_json[i]["page"],"image":"contents/images/croped_images/"+obj_json[i]["topic"].toUpperCase()+"/"+obj_json[i]["page"]+"_0.png"})
+      }
+      return res.json(subtopics_description)
+    })
+  })
+
+  app.get('/api/subtopic_images/:subtopic_page/:limit',function(req,res){
+    var page = req.params.subtopic_page;
+    console.log(page)
+    var limit = req.params.limit;
+
+    var subtopics_images = []
+    var file = JSON_PATH+"splited_images_legend.json"
+    file = file.replace("routes","public")
+    jsonfile.readFile(file, function(err,obj){
+      if(err){
+        console.log(err)
+      }
+      var obj_json = obj;
+      for (var i = 0; i < obj_json.length; i++) {
+        var json_page = obj_json[i].image.split("_")[0]
+        if (parseInt(json_page) == parseInt(page)){
+          console.log(parseInt(json_page) == parseInt(page))
+          subtopics_images.push(obj_json[i])
+        }
+      }
+      return res.json(subtopics_images)
+    })
+  })
+
   // // Middleware to use for all requests
+/*
   app.use('/api/*',function(req,res,next){
     console.log("Middlweware !! ");
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -96,6 +145,8 @@ module.exports = function(app, passport) {
       })
     }
   })
+
+*/
 
   // Test route to make sure that everything is working
   app.get('/api',function(req,res) {
