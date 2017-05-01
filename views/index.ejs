@@ -121,30 +121,28 @@
               <div class="col-md-10 col-lg-10 col-xs-10">
               <h1><i style="font-size:30px;" class="glyphicon glyphicon-folder-open"></i> DICTIONARY TOPICS </h1>
 
-                <div class="col-md-4 col-xs-4 col-lg-4" ng-repeat="topic in topics">
-                  <div id="js-grid-juicy-projects" class="cbp">
-                      <div class="cbp-item {{topic.topic_class}}">
-                        <div class="cbp-item-wrap">
-                            <div class="cbp-caption">
-                                <div class="cbp-caption">
-                                  <img class="raw topic_img" src="{{topic.topic_image}}" style="height:400px; width:400px;" alt="">
-                                <div class="cbp-caption-activeWrap">
-                                    <div class="cbp-l-caption-alignCenter">
-                                        <div class="cbp-l-caption-body">
-                                            <div class="btn-group">
-                                                <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="btn text-lowercase">more info</a>
-                                                <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="btn text-lowercase">more info</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cbp-l-grid-projects-title uppercase text-center uppercase text-center">{{ topic.topic }}</div>
-                            <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ topic.page }}</div>
+
+              <!-- TOPIC ITEM -->
+              <div class="col-md-4 col-xs-4 col-lg-4" ng-repeat="topic in topics">
+                <div class="cbp-item {{topic.topic_class}}">
+                  <div class="cbp-item-wrap">
+                    <img class="raw topic_img" src="{{topic.topic_image}}" style="height:400px; width:400px;" alt="">
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                          <div class="btn-group">
+                              <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="btn text-lowercase">more info</a>
+                              <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="btn text-lowercase">more info</a>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                      <div class="cbp-l-grid-projects-title uppercase text-center uppercase text-center">{{ topic.topic }}</div>
+                      <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ topic.page }}</div>
+                    </div>
                   </div>
-                </div>
+              </div>
+            </div>
 
 
 
