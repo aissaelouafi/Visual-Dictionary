@@ -54,7 +54,8 @@
                   </div>
                    <!-- List-->
                   <ul class="cbp-l-project-details-list">
-                      <li><strong><span class="fa fa-book"></span> Topic </strong> {{ subtopic }}</li>
+                      <li><strong><span class="fa fa-book"></span> Topic </strong> {{ topic }}</li>
+                      <li><strong><span class="fa fa-book"></span> Subtopic </strong> {{ subtopic }}</li>
                       <li><strong><span class="fa fa-calendar"></span> Date</strong>22 December 2016</li>
                       <li><strong><span class="fa fa-wikipedia-w "></span> Annotations </strong><span ng-repeat="annotation in annotations">{{ annotation.title }}, </span></li>
                   </ul>
@@ -87,12 +88,12 @@
                       </div>
                       <!--/Title-->
                       <!--Related List-->
-                      <ul class="cbp-l-project-related-wrap" ng-repeat="subtopic in topics_details">
+                      <ul class="cbp-l-project-related-wrap" ng-repeat="subtopic_image in unique">
                           <li class="cbp-l-project-related-item subtopic">
                               <a href="#" class="cbp-singlePage cbp-l-project-related-link" rel="nofollow">
-                                  <img src="" style="height:300px;width:300px;" alt="">
-                                  <div class="cbp-l-project-related-title text-center">{{ subtopic.subtopic }}</div>
-                                  <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ subtopic.page }} </div>
+                                  <img src="{{ subtopic_image.image }}" style="height:300px;width:300px;" alt="">
+                                  <div class="cbp-l-project-related-title text-center">{{ topic }} / {{ subtopic }}</div>
+                                  <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ subtopic_image.page }} </div>
 
                               </a>
                           </li>

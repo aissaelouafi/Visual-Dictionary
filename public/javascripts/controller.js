@@ -24,6 +24,9 @@ var QueryString = function () {
   return query_string;
 }();
 
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
 
 myApp.controller('indexController', ['$scope', function($scope) {
   var global_summary;
@@ -41,6 +44,7 @@ myApp.controller('indexController', ['$scope', function($scope) {
   }
   $scope.topics = global_summary;
 
+  console.log(global_summary)
 
 }]);
 
@@ -99,7 +103,6 @@ myApp.controller('subtopicController',['$scope',function($scope){
   });
 
 
-
   var request = tagme_url+"&text="+topic_description[0]["description"].toString().replace(/_RL_/g,"")+"&include_abstract=true&include_categories=true";
   var tagme_result;
   $.ajax({
@@ -116,25 +119,6 @@ myApp.controller('subtopicController',['$scope',function($scope){
 
 
 
-  var babel_result = []
-  var babel_url = "https://babelfy.io/v1/disambiguate?text="+topic_description[0]["description"].toString().replace(/_RL_/g,"")+"&th=.5&lang=EN&annType=ALL&match=PARTIAL_MATCHING&MCS=ON&dense=true&cands=TOP&extAIDA=true&key=%3Cyour_key%3E"
-  console.log(babel_url)
-  $.ajax({
-      async:false,
-      url: babel_url,
-      cache: true,
-      success: function(data) {
-        babel_result = data
-      },
-      error: function (data, status, error) {
-        console.log('error', data, status, error);
-      }
-  });
-
-
-  console.log(babel_result)
-
-
   var annotations = []
   var treshold = 0.1;
   for (var i = 0; i < tagme_result.annotations.length; i++) {
@@ -145,11 +129,57 @@ myApp.controller('subtopicController',['$scope',function($scope){
 
 
   $scope.annotations = annotations;
-
   $scope.description = topic_description[0]["description"].toString().replace(/_RL_/g,"")
   $scope.subtopic = subtopic.toUpperCase();
-  $scope.topic = topic_description[0]["topic"];
+  $scope.topic = topic_description[0]["topic"].toUpperCase();
   $scope.page = topic_description[0]["page"];
 
   // TODO : loop into topic description and underline the annotation key words $('.topic_description')
+
+  var subtopic_images = [];
+  var unique = []
+  var final_images = []
+  $.ajax({
+    async:false,
+    type:'GET',
+    url:'/api/subtopic_images/'+topic_description[0]["page"]+"/10",
+    dataType:'json',
+    success: function(data){
+      subtopic_images = data;
+    }
+  });
+
+  for (var i = 0; i < subtopic_images.length; i++) {
+    unique.push(subtopic_images[i].image)
+  }
+  unique = unique.filter(onlyUnique)
+
+  var global_summary;
+  $.ajax({
+      async: false,
+      type: 'GET',
+      url: '/api/global_summary',
+      dataType: 'json',
+      success: function (data) {
+        global_summary = data;
+      }
+  });
+
+
+  var topic_dir = ""
+  for (var i = 0; i < global_summary.length; i++) {
+    if(topic_description[0]["topic"].replace(/\s/g, '').toLowerCase() == global_summary[i].topic.replace(/\s/g, '').toLowerCase()){
+      topic_dir = global_summary[i].topic;
+    }
+  }
+
+  console.log(topic_dir)
+
+  for (var i = 0; i < unique.length; i++) {
+    final_images.push({"image":"/contents/images/croped_images/"+topic_dir+"/"+unique[i],"page":unique[i].split("_")[0]})
+  }
+
+  $scope.unique = final_images;
+  $scope.topic = topic_dir;
+
 }]);

@@ -92,7 +92,7 @@ module.exports = function(app, passport) {
       var obj_json = obj
       for (var i = 0; i < obj_json.length; i++) {
         if(obj_json[i]["subtopic"].replace(/\s/g, '').toLowerCase() == subtopic.toLowerCase())
-          subtopics_description.push({"subtopic":obj_json[i]["subtopic"],"description":obj_json[i]["description"],"page":obj_json[i]["page"],"image":"contents/images/croped_images/"+obj_json[i]["topic"].toUpperCase()+"/"+obj_json[i]["page"]+"_0.png"})
+          subtopics_description.push({"subtopic":obj_json[i]["subtopic"],"topic":obj_json[i]["topic"],"description":obj_json[i]["description"],"page":obj_json[i]["page"],"image":"contents/images/croped_images/"+obj_json[i]["topic"].toUpperCase()+"/"+obj_json[i]["page"]+"_0.png"})
       }
       return res.json(subtopics_description)
     })
@@ -100,7 +100,7 @@ module.exports = function(app, passport) {
 
   app.get('/api/subtopic_images/:subtopic_page/:limit',function(req,res){
     var page = req.params.subtopic_page;
-    console.log(page)
+    page = parseInt(page)
     var limit = req.params.limit;
 
     var subtopics_images = []
@@ -113,8 +113,8 @@ module.exports = function(app, passport) {
       var obj_json = obj;
       for (var i = 0; i < obj_json.length; i++) {
         var json_page = obj_json[i].image.split("_")[0]
-        if (parseInt(json_page) == parseInt(page)){
-          console.log(parseInt(json_page) == parseInt(page))
+        json_page = parseInt(json_page)
+        if (json_page >= page && json_page < page+2){
           subtopics_images.push(obj_json[i])
         }
       }
