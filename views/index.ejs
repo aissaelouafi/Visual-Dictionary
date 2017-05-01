@@ -123,23 +123,27 @@
               <h1><i style="font-size:30px;" class="glyphicon glyphicon-folder-open"></i> DICTIONARY TOPICS </h1>
 
                 <div class="col-md-4 col-xs-4 col-lg-4" ng-repeat="topic in topics">
-                  <div class="cbp-item-wrap">
-                      <div class="cbp-caption">
-                          <div class="cbp-caption-defaultWrap">
-                            <img class="col-md-12" src="./contents/images/portfolios/600x600/1.jpg" alt="">
-                          <div class="cbp-caption-activeWrap">
-                              <div class="cbp-l-caption-alignCenter">
-                                  <div class="cbp-l-caption-body">
-                                      <div class="btn-group">
-                                          <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="cbp-singlePage btn text-lowercase" rel="nofollow">more info</a>
-                                          <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="cbp-singlePage btn text-lowercase" rel="nofollow" data-cbp-singlePage="projects">more info</a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
+                  <div id="js-grid-juicy-projects" class="cbp">
+                      <div class="cbp-item {{ topic.topic_class }}">
+                        <div class="cbp-item-wrap">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                  <img class="raw" src="./contents/images/portfolios/600x600/1.jpg" alt="">
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <div class="btn-group">
+                                                <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="cbp-singlePage btn text-lowercase" rel="nofollow">more info</a>
+                                                <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="cbp-singlePage btn text-lowercase" rel="nofollow" data-cbp-singlePage="projects">more info</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cbp-l-grid-projects-title uppercase text-center uppercase text-center">{{ topic.topic }}</div>
+                            <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ topic.page }}</div>
                       </div>
-                      <div class="cbp-l-grid-projects-title uppercase text-center uppercase text-center">{{ topic.topic }}</div>
-                      <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ topic.page }}</div>
+                    </div>
                   </div>
                 </div>
 
