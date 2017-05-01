@@ -232,6 +232,8 @@ myApp.controller('elementController',['$scope',function($scope){
     if(image_legends[i].legend.length < 40){
       image_legends[i].legend = image_legends[i].legend.replace(/_RL_/g,"")
       image_legends[i].y = parseInt(image_legends[i].y)+200
+      image_legends[i].x = parseInt(image_legends[i].x)+30
+
       final_legend.push(image_legends[i])
     }
   }
