@@ -56,7 +56,7 @@
                   <ul class="cbp-l-project-details-list">
                       <li><strong><span class="fa fa-book"></span> Topic </strong> {{ topic }}</li>
                       <li><strong><span class="fa fa-book"></span> Subtopic </strong> {{ subtopic }}</li>
-                      <li><strong><span class="fa fa-calendar"></span> Date</strong>22 December 2016</li>
+                      <li><strong><span class="fa fa-hashtag"></span> Elements </strong>{{ nb_element }}</li>
                       <li><strong><span class="fa fa-wikipedia-w "></span> Annotations </strong><span ng-repeat="annotation in annotations">{{ annotation.title }}, </span></li>
                   </ul>
               </div>
@@ -90,7 +90,7 @@
                       <!--Related List-->
                       <ul class="cbp-l-project-related-wrap" ng-repeat="subtopic_image in unique">
                           <li class="cbp-l-project-related-item subtopic">
-                              <a href="#" class="cbp-singlePage cbp-l-project-related-link" rel="nofollow">
+                              <a href="/element?id={{subtopic_image.id}}&topic={{subtopic_image.topic}}&subtopic={{subtopic_image.subtopic}}" class="cbp-singlePage cbp-l-project-related-link" rel="nofollow">
                                   <img src="{{ subtopic_image.image }}" style="height:300px;width:300px;" alt="">
                                   <div class="cbp-l-project-related-title text-center">{{ topic }} / {{ subtopic }}</div>
                                   <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ subtopic_image.page }} </div>

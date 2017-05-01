@@ -125,6 +125,26 @@ module.exports = function(app, passport) {
     })
   })
 
+  app.get('/api/subtopic_images/:image',function(req,res){
+    var image = req.params.image;
+
+    var subtopics_images = []
+    var file = JSON_PATH+"splited_images_legend.json"
+    file = file.replace("routes","public")
+    jsonfile.readFile(file, function(err,obj){
+      if(err){
+        console.log(err)
+      }
+      var obj_json = obj;
+      for (var i = 0; i < obj_json.length; i++) {
+        if (obj_json[i].image == image+".png"){
+          subtopics_images.push(obj_json[i])
+        }
+      }
+      return res.json(subtopics_images)
+    })
+  })
+
   // // Middleware to use for all requests
 /*
   app.use('/api/*',function(req,res,next){

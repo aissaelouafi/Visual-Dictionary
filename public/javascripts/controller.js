@@ -200,9 +200,11 @@ myApp.controller('subtopicController',['$scope',function($scope){
   console.log(topic_dir)
 
   for (var i = 0; i < unique.length; i++) {
-    final_images.push({"image":"/contents/images/croped_images/"+topic_dir+"/"+unique[i],"page":unique[i].split("_")[0]})
+    final_images.push({"image":"/contents/images/croped_images/"+topic_dir+"/"+unique[i],"page":unique[i].split("_")[0],"id":unique[i].replace(".png",""),"topic":topic_dir,"subtopic":QueryString.subtopic})
   }
 
+  console.log(final_images)
+  $scope.nb_element = unique.length;
   $scope.unique = final_images;
   $scope.topic = topic_dir;
 
@@ -211,4 +213,42 @@ myApp.controller('subtopicController',['$scope',function($scope){
 
 myApp.controller('elementController',['$scope',function($scope){
   console.log("element controller")
+  $scope.element = {"id":QueryString.id,"page":QueryString.id.split("_")[0],"topic":QueryString.topic,"subtopic":QueryString.subtopic,"image_url":"contents/images/croped_images/"+QueryString.topic+"/"+QueryString.id+".png"}
+
+
+  var image_legends;
+  $.ajax({
+      async: false,
+      type: 'GET',
+      url: '/api/subtopic_images/'+QueryString.id,
+      dataType: 'json',
+      success: function (data) {
+        image_legends = data;
+      }
+  });
+
+  var final_legend = []
+  for (var i = 0; i < image_legends.length; i++) {
+    if(image_legends[i].legend.length < 40){
+      image_legends[i].legend = image_legends[i].legend.replace(/_RL_/g,"")
+      image_legends[i].y = parseInt(image_legends[i].y)+200
+      final_legend.push(image_legends[i])
+    }
+  }
+  console.log(final_legend)
+  $scope.legends = final_legend;
+
+  /*
+  <style>
+  .legend {
+      position: absolute;   top: 150px;   left: 0.39999999999997726px;
+      width: 84.68639999999994px; height: 54.16199999999992px; margin: 0px;
+      font-size:20px;
+  }
+  </style>
+  */
+
+
+
+
 }]);
