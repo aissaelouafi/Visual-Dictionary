@@ -29,6 +29,7 @@ function onlyUnique(value, index, self) {
 }
 
 myApp.controller('indexController', ['$scope', function($scope) {
+  console.log("index controller")
   var global_summary;
   $.ajax({
       async: false,
@@ -113,9 +114,7 @@ myApp.controller('subtopicController',['$scope',function($scope){
   var token = "a33083f6-c493-4fc5-a1af-a3c111023fde-843339462"
   var tagme_url = "https://tagme.d4science.org/tagme/tag?lang=en&gcube-token="+token
 
-  console.log('sub topic controller ... ')
   var subtopic = QueryString.subtopic.toLowerCase().replace(/\s/g, '');
-  console.log(subtopic)
   var topic_description = [];
   $.ajax({
     async:false,
@@ -155,7 +154,7 @@ myApp.controller('subtopicController',['$scope',function($scope){
 
   $scope.annotations = annotations;
   $scope.description = topic_description[0]["description"].toString().replace(/_RL_/g,"")
-  $scope.subtopic = subtopic.toUpperCase();
+  $scope.subtopic = QueryString.subtopic.toUpperCase();
   $scope.topic = topic_description[0]["topic"].toUpperCase();
   $scope.page = topic_description[0]["page"];
 
@@ -207,4 +206,9 @@ myApp.controller('subtopicController',['$scope',function($scope){
   $scope.unique = final_images;
   $scope.topic = topic_dir;
 
+}]);
+
+
+myApp.controller('elementController',['$scope',function($scope){
+  console.log("element controller")
 }]);

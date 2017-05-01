@@ -12,6 +12,10 @@ module.exports = function(app, passport) {
     res.render('login.ejs',{message : req.flash('login Message')});
   })
 
+  app.get('/element',function(req,res){
+    res.render('element.ejs');
+  })
+
   app.get('/profile',isLoggedIn,function(req,res){
     res.render('profile.ejs',{
       user : req.user
