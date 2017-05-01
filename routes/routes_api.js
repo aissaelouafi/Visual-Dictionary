@@ -46,23 +46,25 @@ module.exports = function(app, passport) {
   app.get('/api/global_summary',function(req,res){
     var file = JSON_PATH+"global_summary.json"
     file = file.replace("routes","public")
+    var final_obj = []
     console.log(file)
     jsonfile.readFile(file, function(err, obj) {
       if(err){
         console.log(err)
       }
       for (var i = 0; i < obj.length; i++) {
-        obj[i]["topic_image"] = "contents/images/croped_images/"+obj[i]["topic"]+"/"+obj[i]["page"]+"_0.png".replace(" ","\ ")
-        if(obj[i]["topic"] == "APPENDIX")
-          obj[i]["topic_image"] = "./contents/images/portfolios/600x600/1.jpg"
+        if(obj[i]["topic"] != "INTRODUCTION" && obj[i]["topic"] != "APPENDIX" ){
+          final_obj.push({"topic":obj[i]["topic"],"topic_image":"contents/images/croped_images/"+obj[i]["topic"]+"/"+obj[i]["page"]+"_0.png".replace(" ","\ "),"page":obj[i]["page"]})
+        }
       }
-      return res.json(obj)
+      return res.json(final_obj)
     })
   })
 
-  app.get('/api/sub_topics/:topic',function(req,res){
+  app.get('/api/sub_topics/:topic/:image_dir',function(req,res){
     var topic = req.params.topic;
-    console.log(topic)
+    var image_dir = req.params.image_dir;
+    console.log("topic : "+topic+" image_dir : "+image_dir)
     var subtopics = []
     var file = JSON_PATH+"topics_description.json"
     file = file.replace("routes","public")
@@ -73,7 +75,7 @@ module.exports = function(app, passport) {
       var obj_json = obj
       for (var i = 0; i < obj_json.length; i++) {
         if(obj_json[i]["topic"].replace(/\s/g, '') == topic)
-          subtopics.push({"subtopic":obj_json[i]["subtopic"],"description":obj_json[i]["description"],"page":obj_json[i]["page"],"image":"contents/images/croped_images/"+topic.toUpperCase()+"/"+obj_json[i]["page"]+"_0.png"})
+          subtopics.push({"subtopic":obj_json[i]["subtopic"],"description":obj_json[i]["description"],"page":obj_json[i]["page"],"image":"contents/images/croped_images/"+image_dir+"/"+obj_json[i]["page"]+"_0.png"})
       }
       return res.json(subtopics)
     })

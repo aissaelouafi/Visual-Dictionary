@@ -44,21 +44,13 @@
                 <!--Contact-->
                 <div class="list-group-item">
                     <address>
-                        <strong>Visual Dictionary</strong><br>
-                        1234 Lorem Street, 100<br>
-                        Lorem Ipsum City, 10100<br>
-                        <abbr title="Phone">P:</abbr> (123) 456-7890
-                        <br /><br />
-                        <a href="#map" data-toggle="modal"><i class="glyphicon glyphicon-map-marker"></i></a>
-                    </address>
-                    <address>
                         <strong>Caserne Team</strong><br>
                         <a href="mailto:#">Aissa EL OUAFI</a><br>
                         <a href="mailto:#">Smail MEDJADI</a><br>
                         <a href="mailto:#">Mohamed Amine HARTY</a><br>
                         <a href="mailto:#">Saber DRISSA</a><br>
                         <a href="mailto:#">Mehmoud ABOU SALEH</a><br>
-                        <a href="mailto:#">Ilyace BENTAHAR</a><br>
+                        <a href="mailto:#">Iliesse BENTAHAR</a><br>
                     </address>
                 </div>
                 <!--/Contact-->
@@ -98,7 +90,7 @@
             </div>
             <!-- /Mobile Menu-->
             <!--portfolio -->
-            <div class="row">
+            <div class="raw">
               <div class="col-md-10 col-xs-9">
                 <h1><i style="font-size:30px;" class="glyphicon glyphicon-search"></i> SEARCH ENGINE  </h1>
                 <form>
@@ -124,17 +116,17 @@
 
                 <div class="col-md-4 col-xs-4 col-lg-4" ng-repeat="topic in topics">
                   <div id="js-grid-juicy-projects" class="cbp">
-                      <div class="cbp-item {{ topic.topic_class }}">
+                      <div class="cbp-item">
                         <div class="cbp-item-wrap">
                             <div class="cbp-caption">
                                 <div class="cbp-caption-defaultWrap">
-                                  <img class="raw" src="./contents/images/portfolios/600x600/1.jpg" alt="">
+                                  <img class="raw" src="{{ topic.topic_image }}" style="height:400px; width:400px;"alt="">
                                 <div class="cbp-caption-activeWrap">
                                     <div class="cbp-l-caption-alignCenter">
                                         <div class="cbp-l-caption-body">
                                             <div class="btn-group">
-                                                <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="cbp-singlePage btn text-lowercase" rel="nofollow">more info</a>
-                                                <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="cbp-singlePage btn text-lowercase" rel="nofollow" data-cbp-singlePage="projects">more info</a>
+                                                <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="btn text-lowercase">more info</a>
+                                                <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="btn text-lowercase">more info</a>
                                             </div>
                                         </div>
                                     </div>
@@ -149,31 +141,6 @@
 
 
 
-<!--
-              <div ng-repeat="topic in topics">
-                  <div id="js-grid-juicy-projects" class="cbp">
-                      <div class="cbp-item {{ topic.topic_class }}">
-                          <div class="cbp-item-wrap">
-                              <div class="cbp-caption">
-                                  <div class="cbp-caption-defaultWrap">
-                                    <img src="./contents/images/portfolios/600x600/1.jpg" alt="">
-                                  <div class="cbp-caption-activeWrap">
-                                      <div class="cbp-l-caption-alignCenter">
-                                          <div class="cbp-l-caption-body">
-                                              <div class="btn-group">
-                                                  <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="cbp-singlePage btn text-lowercase" rel="nofollow">more info</a>
-                                                  <a href="/topic?name={{topic.topic}}&page={{ topic.page }}" class="cbp-singlePage btn text-lowercase" rel="nofollow" data-cbp-singlePage="projects">more info</a>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="cbp-l-grid-projects-title uppercase text-center uppercase text-center">{{ topic.topic }}</div>
-                              <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ topic.page }}</div>
-                          </div>
-                      </div>
-                  </div>
--->
                 <!-- /portfolio Grid-->
                 <!--portfolio loadMore-->
                 <div id="js-loadMore-juicy-projects" class="cbp-l-loadMore-button">

@@ -50,16 +50,41 @@ myApp.controller('indexController', ['$scope', function($scope) {
 
 myApp.controller('topicController', ['$scope', function($scope) {
   console.log("Topic details controller ... ")
-  var topic = QueryString.name.toLowerCase()
+  var topic = QueryString.name
   var page = QueryString.page
-  $scope.topic = topic.toUpperCase();
+  $scope.topic = topic.toUpperCase()
+
+
+
+
+  var global_summary;
+  $.ajax({
+      async: false,
+      type: 'GET',
+      url: '/api/global_summary',
+      dataType: 'json',
+      success: function (data) {
+        global_summary = data;
+      }
+  });
+
+
+  var topic_dir = ""
+  for (var i = 0; i < global_summary.length; i++) {
+    if(topic.replace(/\s/g, '').toLowerCase() == global_summary[i].topic.replace(/\s/g, '').toLowerCase()){
+      topic_dir = global_summary[i].topic;
+    }
+  }
+  console.log(topic_dir)
+
+  topic = topic_dir.toLowerCase().replace(/\s/g, '')
 
   var topics_details;
   var subtopics = [];
   $.ajax({
     async:false,
     type:'GET',
-    url:'/api/sub_topics/'+topic,
+    url:'/api/sub_topics/'+topic+'/'+topic_dir,
     dataType:'json',
     success: function(data){
       topics_details = data;
@@ -78,7 +103,7 @@ myApp.controller('topicController', ['$scope', function($scope) {
   $scope.topics_details = topics_details;
 
 
-  var topic_image = "contents/images/croped_images/"+topic.toUpperCase()+"/"+page+"_0.png".replace(" ","\ ")
+  var topic_image = "contents/images/croped_images/"+topic_dir+"/"+page+"_0.png"
   $scope.topic_image = topic_image
   $scope.topic_page = page
   console.log(topic_image)
@@ -89,7 +114,7 @@ myApp.controller('subtopicController',['$scope',function($scope){
   var tagme_url = "https://tagme.d4science.org/tagme/tag?lang=en&gcube-token="+token
 
   console.log('sub topic controller ... ')
-  var subtopic = QueryString.subtopic;
+  var subtopic = QueryString.subtopic.toLowerCase().replace(/\s/g, '');
   console.log(subtopic)
   var topic_description = [];
   $.ajax({
