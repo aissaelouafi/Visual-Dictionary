@@ -54,7 +54,8 @@ module.exports = function(app, passport) {
       }
       for (var i = 0; i < obj.length; i++) {
         if(obj[i]["topic"] != "INTRODUCTION" && obj[i]["topic"] != "APPENDIX" ){
-          final_obj.push({"topic":obj[i]["topic"],"topic_image":"contents/images/croped_images/"+obj[i]["topic"]+"/"+obj[i]["page"]+"_0.png".replace(" ","\ "),"page":obj[i]["page"]})
+          if(i == 6){final_obj.push({"topic":obj[i]["topic"],"topic_image":"contents/images/croped_images/"+obj[i]["topic"]+"/"+obj[i]["page"]+"_1.png".replace(" ","\ "),"page":obj[i]["page"]})} else
+            final_obj.push({"topic":obj[i]["topic"],"topic_image":"contents/images/croped_images/"+obj[i]["topic"]+"/"+obj[i]["page"]+"_0.png".replace(" ","\ "),"page":obj[i]["page"]})
         }
       }
       return res.json(final_obj)
