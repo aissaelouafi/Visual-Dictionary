@@ -51,6 +51,25 @@ myApp.controller('indexController', ['$scope', function($scope) {
 
   console.log(global_summary)
 
+  $scope.myFunc = function(element) {
+      console.log(element.name);
+      var search_results;
+      $.ajax({
+          async: false,
+          type: 'GET',
+          url: '/api/search_engine/'+element.name,
+          dataType: 'json',
+          success: function (data) {
+            search_results = data;
+          }
+      });
+      for (var i = 0; i < search_results.length; i++) {
+        search_results[i]["show_description"] = "... "+search_results[i].description.toString().split(element.name)[0].slice(-300)+search_results[i].description.toString().split(element.name)[1].substring(0,300) +"..."
+        search_results[i]["subtopic"] =  search_results[i]["subtopic"].toUpperCase()
+      }
+      $scope.search_results = search_results;
+      $('.description').mark('players')
+  };
 }]);
 
 myApp.controller('topicController', ['$scope', function($scope) {
@@ -112,6 +131,7 @@ myApp.controller('topicController', ['$scope', function($scope) {
   $scope.topic_image = topic_image
   $scope.topic_page = page
   console.log(topic_image)
+
 }]);
 
 myApp.controller('subtopicController',['$scope',function($scope){
@@ -212,6 +232,7 @@ myApp.controller('subtopicController',['$scope',function($scope){
   $scope.unique = final_images;
   $scope.topic = topic_dir;
 
+
 }]);
 
 
@@ -260,17 +281,4 @@ myApp.controller('elementController',['$scope',function($scope){
 
   $scope.legends_string = legends_string;
   $scope.nb_legends = legends_string.length;
-  /*
-  <style>
-  .legend {
-      position: absolute;   top: 150px;   left: 0.39999999999997726px;
-      width: 84.68639999999994px; height: 54.16199999999992px; margin: 0px;
-      font-size:20px;
-  }
-  </style>
-  */
-
-
-
-
 }]);

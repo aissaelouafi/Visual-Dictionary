@@ -101,6 +101,29 @@ module.exports = function(app, passport) {
     })
   })
 
+
+  app.get('/api/search_engine/:element',function(req,res){
+    var element = req.params.element.toLowerCase();
+    console.log(element);
+    var search_result = [];
+    var file = JSON_PATH+"topics_description.json"
+    file = file.replace("routes","public")
+    jsonfile.readFile(file,function(err,obj){
+      if(err){
+        console.log(err)
+      }
+      var obj_json = obj;
+      for (var i = 0; i < obj_json.length; i++) {
+        var description = obj_json[i]["description"].toString().toLowerCase()
+        if(description.includes(element.toLowerCase())){
+          search_result.push({"subtopic":obj_json[i]["subtopic"],"topic":obj_json[i]["topic"],"description":obj_json[i]["description"].toString().replace(/_RL_/g,""),"page":"/topic?name="+obj_json[i]["topic"]+"&page="+obj_json[i]["page"],"index":description.indexOf(element),"image":"contents/images/croped_images/"+obj_json[i]["topic"].toUpperCase()+"/"+obj_json[i]["page"]+"_0.png"})
+        }
+      }
+      return res.json(search_result)
+    })
+  })
+
+
   app.get('/api/subtopic_images/:subtopic_page/:limit',function(req,res){
     var page = req.params.subtopic_page;
     page = parseInt(page)
