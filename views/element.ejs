@@ -44,10 +44,12 @@
                       <a href="" class="">
                           <img src="{{ element.image_url }}" alt="">
                       </a>
-                      <p class="legend" ng-repeat="legend in legends" style="position: absolute; width:{{legend.width}}px;height:{{legend.height}}px;left:{{legend.x}}px; top:{{legend.y}}px; font-size:15px; padding=200px;">
+                      <p class="legend" ng-repeat="legend in legends" style="position: absolute; width:{{legend.width}}px;height:{{legend.height}}px;left:{{legend.x}}px; top:{{legend.y}}px; font-size:15px;">
                           {{ legend.legend }}
                       </p>
                   </li>
+                  <p class="text-center"><b><span class="fa fa-eye"></span> Title : {{fig_title}} </b></p>
+
               </ul>
           </div>
           <!--/Slider-->
@@ -56,11 +58,9 @@
               <!--Description-->
               <div class="cbp-l-project-desc">
                   <div class="cbp-l-project-desc-title">
-                      <span>Similar elements</span>
+                      <span>Legends : </span>
                   </div>
-                  <div class="cbp-l-project-desc-text"> <span class="fa fa-user"></span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, cumque, earum blanditiis incidunt minus commodi consequatur provident quae. Nihil, alias, vel consequatur ab aliquam aspernatur optio harum facilis excepturi mollitia autem
-                      voluptas cum ex veniam numquam quia repudiandae in iure. Assumenda, vel provident molestiae perferendis officia commodi asperiores earum sapiente inventore quam deleniti mollitia consequatur expedita quaerat natus praesentium beatae aut
-                      ipsa non ex ullam atque suscipit ut dignissimos magnam!</div>
+                  <div class="cbp-l-project-desc-text" ng-repeat="legend in legends_string track by $index" id={{legend}}> <span class="fa fa-hashtag"></span> <b> {{ legend }} : </b></div>
               </div>
               <!--/Description-->
               <!--/Detail List-->
@@ -70,9 +70,9 @@
                   </div>
                    <!-- List-->
                   <ul class="cbp-l-project-details-list">
-                      <li><strong>Topic </strong> {{topic}}</li>
-                      <li><strong>Date</strong>22 December 2016</li>
-                      <li><strong># Subtopics </strong>{{ nbsubtopics }}</li>
+                      <li><strong><span class="fa fa-book"></span> Topic </strong> {{element.topic}}</li>
+                      <li><strong><span class="fa fa-hashtag"></span> Legends </strong>{{nb_legends}}</li>
+                      <li><strong><span class="fa fa-book"></span> Subtopics </strong>{{ element.subtopic }}</li>
                   </ul>
                    <!--/List-->
                   <a href="#" target="_blank" class="cbp-l-project-details-visit btn red uppercase">visit the site</a>

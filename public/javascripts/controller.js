@@ -28,6 +28,10 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+function isUpperCase(str) {
+    return str === str.toUpperCase();
+}
+
 myApp.controller('indexController', ['$scope', function($scope) {
   console.log("index controller")
   var global_summary;
@@ -213,7 +217,7 @@ myApp.controller('subtopicController',['$scope',function($scope){
 
 myApp.controller('elementController',['$scope',function($scope){
   console.log("element controller")
-  $scope.element = {"id":QueryString.id,"page":QueryString.id.split("_")[0],"topic":QueryString.topic,"subtopic":QueryString.subtopic,"image_url":"contents/images/croped_images/"+QueryString.topic+"/"+QueryString.id+".png"}
+  $scope.element = {"id":QueryString.id,"page":QueryString.id.split("_")[0],"topic":QueryString.topic,"subtopic":QueryString.subtopic.toUpperCase(),"image_url":"contents/images/croped_images/"+QueryString.topic+"/"+QueryString.id+".png"}
 
 
   var image_legends;
@@ -228,18 +232,34 @@ myApp.controller('elementController',['$scope',function($scope){
   });
 
   var final_legend = []
+  var fig_title = ""
   for (var i = 0; i < image_legends.length; i++) {
     if(image_legends[i].legend.length < 40){
       image_legends[i].legend = image_legends[i].legend.replace(/_RL_/g,"")
       image_legends[i].y = parseInt(image_legends[i].y)+200
       image_legends[i].x = parseInt(image_legends[i].x)+30
-
+      if(isUpperCase(image_legends[i].legend)) {
+        fig_title = image_legends[i].legend;
+        image_legends[i].legend = ""
+      }
       final_legend.push(image_legends[i])
     }
   }
-  console.log(final_legend)
+
+  $scope.fig_title = fig_title;
   $scope.legends = final_legend;
 
+  var legends_string = []
+  for (var i = 0; i < final_legend.length; i++) {
+    legends_string.push(final_legend[i].legend)
+  }
+
+  legends_string = legends_string.filter(onlyUnique)
+  console.log(legends_string)
+
+
+  $scope.legends_string = legends_string;
+  $scope.nb_legends = legends_string.length;
   /*
   <style>
   .legend {
