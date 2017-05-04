@@ -98,46 +98,48 @@
             <!-- /Mobile Menu-->
             <!--portfolio -->
             <div class="raw">
-              <div class="col-md-10 col-md-10 col-ld-10">
+              <div class="col-md-9 col-md-9 col-ld-9">
                 <h1><i style="font-size:30px;" class="glyphicon glyphicon-search"></i> SEARCH ENGINE  </h1>
                 <form>
                   <div class="form-group col-md-10">
                     <input type="text" class="form-control" aria-describedby="emailHelp" ng-model="element.name" placeholder="Search a topic or an item in the dictionary ">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <small id="emailHelp" class="form-text text-muted">Search a topic, subtopic or an element of the dictionary</small>
                   </div>
                   <button type="submit" ng-click="myFunc(element)" class="btn btn-success col-md-2">Search</button>
                 </form>
 
-
-                <div class="form-group col-md-10 col-lg-10 col-xs-10">
+                <!--
+                <div class="form-group col-md-9 col-lg-9 col-xs-9">
                   <input type="file" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary col-md-2">Load the image</button>
+              -->
               </form>
 
               <div class="search_engine_result" ng-repeat="result in search_results">
                 <div class="col-md-12 col-xs-12 vol-lg-12">
                   <div class="col-md-1 col-lg-1 col-xs-1">
-                    <img class="raw img-circle" src="contents/images/portfolios/600x600/1.jpg" background-color="black" style="height:110px; width:110px;" alt="">
+                    <img class="raw img-circle" src="{{result.image}}" background-color="black" style="height:110px; width:110px;" alt="">
                   </div>
                   <div class="col-md-11 col-lg-11 col-xs-11">
-                    <p class="description"><b>{{ result.subtopic }}</b><br/> {{ result.description}}<br/> <b><i class="fa fa-link"></i> </b><a href="{{result.page}}">{{result.page}}</a></p>
+                    <p class="description" style="font-size:15px;"><b>{{ result.subtopic }}</b><br/> {{ result.description}}<br/> <b><i class="fa fa-link"></i> </b><a href="{{result.page}}">{{result.page}}</a></p>
                   </div>
                 </div>
+                <hr class="divider">
             </div>
 
 
 
               </div>
-              <div class="col-md-10 col-lg-10 col-xs-10">
+              <div class="col-md-9 col-lg-9 col-xs-9">
               <h1><i style="font-size:30px;" class="glyphicon glyphicon-folder-open"></i> DICTIONARY TOPICS </h1>
 
 
               <!-- TOPIC ITEM -->
-              <div class="col-md-4 col-xs-4 col-lg-4" ng-repeat="topic in topics">
+              <div class="col-md-4 col-xs-4 col-lg-4" id="topic_item" ng-repeat="topic in topics">
                 <div class="cbp-item {{topic.topic_class}}">
                   <div class="cbp-item-wrap">
-                    <img class="raw topic_img" src="{{topic.topic_image}}" style="height:400px; width:400px;" alt="">
+                    <img class="raw topic_img" src="{{topic.topic_image}}" style="height:300px; width:300px;" alt="">
                     <div class="cbp-caption-activeWrap">
                       <div class="cbp-l-caption-alignCenter">
                         <div class="cbp-l-caption-body">
@@ -256,9 +258,6 @@
     </body>
 
     <style>
-    .search_engine_result{
-      padding-top: 150px;
-    }
     .description {
       padding-left: 40px;
     }

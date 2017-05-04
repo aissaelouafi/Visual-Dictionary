@@ -32,6 +32,28 @@ function isUpperCase(str) {
     return str === str.toUpperCase();
 }
 
+function getTopicName(topic){
+  var global_summary;
+  $.ajax({
+      async: false,
+      type: 'GET',
+      url: '/api/global_summary',
+      dataType: 'json',
+      success: function (data) {
+        global_summary = data;
+      }
+  });
+
+
+  var topic_dir = ""
+  for (var i = 0; i < global_summary.length; i++) {
+    if(topic.replace(/\s/g, '').toLowerCase() == global_summary[i].topic.replace(/\s/g, '').toLowerCase()){
+      topic_dir = global_summary[i].topic;
+    }
+  }
+  return topic_dir;
+}
+
 myApp.controller('indexController', ['$scope', function($scope) {
   console.log("index controller")
   var global_summary;
@@ -63,11 +85,23 @@ myApp.controller('indexController', ['$scope', function($scope) {
             search_results = data;
           }
       });
+
+
+
+
+
       for (var i = 0; i < search_results.length; i++) {
-        search_results[i]["show_description"] = "... "+search_results[i].description.toString().split(element.name)[0].slice(-300)+search_results[i].description.toString().split(element.name)[1].substring(0,300) +"..."
+        //search_results[i]["show_description"] = "... "+search_results[i].description.toString().split(element.name)[0].slice(-300)+search_results[i].description.toString().split(element.name)[1].substring(0,300) +"..."
         search_results[i]["subtopic"] =  search_results[i]["subtopic"].toUpperCase()
+        search_results[i]["page"] =  search_results[i]["page"].toString().replace(/\s/g, '').toLowerCase()
+        search_results[i]["image"] =  search_results[i]["image"].toString().replace(/\s/g, '').toLowerCase()
+        var topic = search_results[i]["topic"].toString().replace(/\s/g, '').toLowerCase()
+        console.log("topic : "+topic)
+        console.log("folder : "+getTopicName(topic))
+        search_results[i]["image"] = search_results[i]["image"].replace(topic,getTopicName(topic))
       }
       $scope.search_results = search_results;
+      console.log(search_results)
       $('.description').mark('players')
   };
 }]);
@@ -79,7 +113,22 @@ myApp.controller('topicController', ['$scope', function($scope) {
   $scope.topic = topic.toUpperCase()
 
 
-
+  var wiki_results =[];
+  var element =""
+  $.ajax({
+      async: false,
+      type: 'GET',
+      url: 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles='+topic,
+      dataType: 'json',
+      success: function (data) {
+        wiki_results = data;
+        //console.log(data);
+      }
+  });
+  for (var key in wiki_results.query.pages) {
+    element = wiki_results.query.pages[key];
+  }
+  console.log(element)
 
   var global_summary;
   $.ajax({
@@ -278,7 +327,84 @@ myApp.controller('elementController',['$scope',function($scope){
   legends_string = legends_string.filter(onlyUnique)
   console.log(legends_string)
 
+  var final_results = [];
+  for (var i = 0; i < legends_string.length; i++) {
+    var wiki_results =[];
 
-  $scope.legends_string = legends_string;
+    $.ajax({
+        async: false,
+        type: 'GET',
+        url: 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles='+legends_string[i],
+        dataType: 'json',
+        success: function (data) {
+          wiki_results = data;
+          console.log(data);
+        }
+    });
+    var element = "";
+    try {
+      for (var key in wiki_results.query.pages) {
+        element = wiki_results.query.pages[key];
+      }
+      final_results.push({"legend":legends_string[i],"wikipedia_definition":element})
+      throw "monException"; // génère une exception
+  } catch(e){
+    console.log(e)
+  }
+  }
+
+  /*Image search*/
+    var tab_images = [];
+    var legends_images;
+
+    for (var i = 0; i < legends_string.length; i++){
+
+
+      var wiki_results =[];
+      var legends_images = [];
+
+      $.ajax({
+          async: false,
+          type: 'GET',
+          cache: true,
+          url: 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles='+legends_string[i],
+          dataType: 'json',
+          success: function (data) {
+            wiki_results = data;
+            //console.log(data);
+          }
+      });
+      var element = "";
+      try {
+        $.ajax({
+            async: false,
+            type: 'GET',
+            cache: true,
+            url: 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCTiujsR4ZbAR30ErqPTL4BQiJs6Y5nd-4&cx=003507009189361982086:5vyheu7uvka&q='+legends_string[i].replace(/\s/g,'+')+'&searchType=image&num=1&start=1&fileType=png&imgSize=large&alt=json',
+            dataType: 'json',
+            success: function (data) {
+              legends_images = data;
+            }
+        });
+        for (var key in wiki_results.query.pages) {
+          element = wiki_results.query.pages[key];
+        }
+        var image;
+        final_results.push({"image":legends_images.items[0].link,"legend":legends_string[i],"wikipedia_definition":element})
+        throw "monException"; // génère une exception
+    } catch(e){
+      //console.log(e)
+    }
+  }
+
+
+  for (var i = 0; i < final_results.length; i++) {
+    console.log(final_results[i])
+    if(final_results[i]["image"] == undefined) {final_results[i].image = "/contents/images/icons/noimage.jpeg"}
+  }
+
+  console.log(final_results)
+
+  $scope.legends_string = final_results;
   $scope.nb_legends = legends_string.length;
 }]);

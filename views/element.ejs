@@ -45,7 +45,7 @@
                           <img src="{{ element.image_url }}" alt="">
                       </a>
                       <p class="legend" ng-repeat="legend in legends" style="position: absolute; width:{{legend.width}}px;height:{{legend.height}}px;left:{{legend.x}}px; top:{{legend.y}}px; font-size:15px;">
-                          {{ legend.legend }}
+                          <a href="#{{legend.legend}}">{{ legend.legend }}</a>
                       </p>
                   </li>
                   <p class="text-center"><b><span class="fa fa-eye"></span> Title : {{fig_title}} </b></p>
@@ -56,49 +56,18 @@
           <!--Container-->
           <div class="cbp-l-project-container">
               <!--Description-->
-              <div class="cbp-l-project-desc">
+              <div class="cbp-l-project-related">
                   <div class="cbp-l-project-desc-title">
                       <span>Legends : </span>
                   </div>
-                  <div class="cbp-l-project-desc-text" ng-repeat="legend in legends_string track by $index" id={{legend}}> <span class="fa fa-hashtag"></span> <b> {{ legend }} : </b></div>
-              </div>
-              <!--/Description-->
-              <!--/Detail List-->
-              <div class="cbp-l-project-details">
-                  <div class="cbp-l-project-details-title">
-                      <span>Topic Details</span>
+                  <div ng-repeat="legend in legends_string" class="cbp-l-project-desc-text {{legend.legend}}">
+                    <div class="col-md-9 col-xs-9 col-lg-9">
+                      <span class="fa fa-wikipedia-w"></span> <b> {{ legend.legend }}</b> : {{legend.wikipedia_definition.extract}}
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xs-3">
+                      <img class="img-circle" src="{{legend.image}}" style="width:150px;height:150px;"></img>
+                    </div>
                   </div>
-                   <!-- List-->
-                  <ul class="cbp-l-project-details-list">
-                      <li><strong><span class="fa fa-book"></span> Topic </strong> {{element.topic}}</li>
-                      <li><strong><span class="fa fa-hashtag"></span> Legends </strong>{{nb_legends}}</li>
-                      <li><strong><span class="fa fa-book"></span> Subtopics </strong>{{ element.subtopic }}</li>
-                  </ul>
-                   <!--/List-->
-                  <a href="#" target="_blank" class="cbp-l-project-details-visit btn red uppercase">visit the site</a>
-              </div>
-              <!--/Detail List-->
-          </div>
-          <!--/Container-->
-          <!--Container 2-->
-          <div class="cbp-l-project-container">
-              <div class="cbp-l-project-related">
-                  <!--Title-->
-                  <div class="cbp-l-project-desc-title">
-                      <span>Subtopics </span>
-                  </div>
-                  <!--/Title-->
-                  <!--Related List-->
-                  <ul class="cbp-l-project-related-wrap" ng-repeat="subtopic in topics_details">
-                      <li class="cbp-l-project-related-item subtopic">
-                          <a href="/subtopic?subtopic={{subtopic.subtopic}}" class="cbp-singlePage cbp-l-project-related-link" rel="nofollow">
-                              <img src="{{subtopic.image}}" style="height:300px;width:300px;" alt="">
-                              <div class="cbp-l-project-related-title text-center">{{ subtopic.subtopic }}</div>
-                              <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Page : {{ subtopic.page }} </div>
-                          </a>
-                      </li>
-                  </ul>
-                  <!--/Related List-->
               </div>
           </div>
           <!--/Container 2-->
@@ -122,5 +91,11 @@
       <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
       <script src="./contents/js/main.js" type="text/javascript"></script>
       <script src="./javascripts/controller.js" type="text/javascript"></script>
+
+      <style>
+      .legend_wikipedia {
+        padding-top:350px;
+      }
+      </style>
 </body>
 </html>
